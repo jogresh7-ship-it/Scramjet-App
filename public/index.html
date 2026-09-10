@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Scramjet Proxy for Next Dev</title>
+    <title>Scramjet</title>
 
     <link rel="shortcut icon" content="favicon.webp" />
 
@@ -33,6 +33,7 @@
             display: flex;
             flex-direction: column;
             min-height: 100vh;
+            overflow: hidden;
         }
 
         html {
@@ -41,13 +42,14 @@
             background-attachment: fixed;
         }
 
+        /* Set iframe z-index above background text so users can interact directly with the loaded site */
         iframe {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100vh;
-            z-index: -1;
+            z-index: 1;
             border: none;
         }
 
@@ -57,7 +59,7 @@
             left: 0;
             width: 100%;
             height: 100vh;
-            z-index: -1;
+            z-index: 1;
             border: none;
             display: none;
             background-color: #111;
@@ -75,6 +77,7 @@
             width: 100vw;
             height: 100vh;
             background-color: #111;
+            z-index: 1;
         }
 
         .tab.active {
@@ -86,7 +89,7 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            z-index: -1;
+            z-index: 0;
             user-select: none;
             mix-blend-mode: overlay;
         }
@@ -139,6 +142,7 @@
             border-radius: 6px;
         }
 
+        /* Controls sit above iframe (z-index: 100) */
         .webcontrols {
             background: #36363638;
             padding: 15px;
@@ -307,6 +311,14 @@
             color: #fff;
             font-family: "Courier New", Courier, monospace;
         }
+
+        /* Position the expand down button at top center when search bar is hidden */
+        .showcontrols {
+            z-index: 100;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
     </style>
 </head>
 
@@ -338,13 +350,13 @@
         </div>
     </div>
 
-    <button class="showcontrols" onclick="show()" style="opacity: 0; position: fixed; right: 0.2%; display: none; transition: 0.2s; z-index: 100;">
+    <button class="showcontrols" onclick="show()" style="opacity: 0; position: fixed; display: none; transition: 0.2s;">
         <i class="fas fa-chevron-down"></i>
     </button>
 
     <div class="backgroundtext">
         <h1>Scramjet</h1>
-        <p>made by frutiger | built for frutiger os</p>
+        <p>made by frutiger | built for frutiger-os</p>
         <p id="sj-error"></p>
         <pre id="sj-error-code"></pre>
     </div>
@@ -525,12 +537,7 @@
 
             const loadC = document.querySelector(".backgroundtext");
             if (loadC) {
-                loadC.innerHTML = `
-                    <center>
-                        <div class="loader"></div>
-                        <p>Loading via Scramjet...</p>
-                    </center>
-                `;
+                loadC.style.display = "none";
             }
 
             go(url);
@@ -599,14 +606,6 @@
                         const titleEl = tabEl.querySelector(".btitle");
                         if (titleEl) titleEl.textContent = title;
                     }
-
-                    const loadC = document.querySelector(".backgroundtext");
-                    if (loadC) {
-                        loadC.innerHTML = `
-                            <h1>Scramjet</h1>
-                            <p>made by frutiger | built for frutiger-os</p>
-                        `;
-                    }
                 };
             } catch (e) {
                 console.error("Error loading page:", e);
@@ -645,7 +644,6 @@
             }
         }
 
-        /* Popout in dedicated window/tab without search bar or UI controls */
         function full() {
             const viewframe = document.querySelector(`.viewframe[data-frame-id="${aTab}"]`);
             const cTab = bTabs.find((t) => t.id === aTab);
@@ -690,8 +688,9 @@
             }
         }
 
+        /* Slide controls up off-screen so the website in the background can be used completely */
         function hide() {
-            document.querySelector(".webcontrols").style.marginTop = "-15%";
+            document.querySelector(".webcontrols").style.transform = "translate(-50%, -200%)";
             setTimeout(() => {
                 document.querySelector(".webcontrols").style.display = "none";
                 document.querySelector(".showcontrols").style.display = "block";
@@ -701,13 +700,14 @@
             }, 401);
         }
 
+        /* Restore search bar controls over the website */
         function show() {
             document.querySelector(".showcontrols").style.opacity = "0";
             setTimeout(() => {
                 document.querySelector(".showcontrols").style.display = "none";
-                document.querySelector(".webcontrols").style.display = "block";
+                document.querySelector(".webcontrols").style.display = "inline-block";
                 setTimeout(() => {
-                    document.querySelector(".webcontrols").style.marginTop = "10px";
+                    document.querySelector(".webcontrols").style.transform = "translateX(-50%)";
                 }, 25);
             }, 201);
         }
