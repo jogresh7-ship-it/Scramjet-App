@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>App Frame</title>
+    <style>
+        /* Reset margins and overflow to ensure true full-screening */
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background-color: #0f172a;
+            font-family: system-ui, -apple-system, sans-serif;
+        }
+
+        /* Container to hold and full-screen the target content */
+        .frame-container {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* The iframe that loads your target HTML/app route */
+        iframe {
+            flex-grow: 1;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="frame-container">
+        <!-- Change the src attribute to point to your target HTML file or route -->
+        <iframe id="contentFrame" src="public/index.html" title="App View"></iframe>
+    </div>
+
+    <script>
+        // Optional: Add logic here if you need to dynamically change routes 
+        // or communicate with the framed content window.
+        window.addEventListener('message', (event) => {
+            // Handle cross-frame routing messages if necessary
+            console.log("Message received from frame:", event.data);
+        });
+    </script>
+
+</body>
+</html>
