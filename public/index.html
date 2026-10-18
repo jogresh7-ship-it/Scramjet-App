@@ -15,21 +15,28 @@
     <script src="search.js" defer></script>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
-        rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet">
 
     <style>
-        *:not(.fas) {
-            font-family: "Inter", "Roboto", system-ui, -apple-system, sans-serif !important;
+        /* Custom TTF Font Definition */
+        @font-face {
+            font-family: 'GNFFont';
+            src: url('APPFONT/gnf.regular.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        /* Universal Custom Font Rule applied globally across all elements & numbers */
+        *, *::before, *::after,
+        html, body, input, button, select, textarea, option, optgroup,
+        h1, h2, h3, h4, h5, h6, p, span, a, div, iframe {
+            font-family: 'GNFFont', sans-serif !important;
+            font-variant-numeric: tabular-nums lining-nums;
         }
 
         body {
             margin: 0;
-            background: #111;
+            background: transparent !important;
             display: flex;
             flex-direction: column;
             min-height: 100vh;
@@ -37,12 +44,10 @@
         }
 
         html {
-            background: radial-gradient(at bottom, #111111, #000000);
-            background-size: cover;
-            background-attachment: fixed;
+            background: transparent !important;
         }
 
-        /* Set iframe z-index above background text so users can interact directly with the loaded site */
+        /* Keep viewframe transparent by default when empty, opaque white/dark when active site loads */
         iframe {
             position: absolute;
             top: 0;
@@ -51,6 +56,7 @@
             height: 100vh;
             z-index: 1;
             border: none;
+            background: transparent;
         }
 
         iframe.viewframe {
@@ -62,11 +68,15 @@
             z-index: 1;
             border: none;
             display: none;
-            background-color: #111;
+            background: transparent;
         }
 
         .viewframe.active {
             display: block;
+        }
+
+        .viewframe.loaded-site {
+            background-color: #ffffff;
         }
 
         #sj-frame {
@@ -76,12 +86,11 @@
             left: 0;
             width: 100vw;
             height: 100vh;
-            background-color: #111;
             z-index: 1;
         }
 
         .tab.active {
-            background: #96969638;
+            background: rgba(150, 150, 150, 0.25);
         }
 
         .backgroundtext {
@@ -121,7 +130,7 @@
         form input {
             height: 20px;
             padding: 10px 20px;
-            background: #36363638;
+            background: rgba(54, 54, 54, 0.22);
             backdrop-filter: blur(10px);
             border: 2px solid transparent;
             box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.3), 0 16px 32px rgba(0, 0, 0, 0.12);
@@ -133,10 +142,11 @@
             margin-right: 5px;
             width: 100%;
             outline: none;
+            font-family: 'GNFFont', sans-serif !important;
         }
 
         form input:focus {
-            background: #5e5e5e38;
+            background: rgba(94, 94, 94, 0.35);
             outline: none;
             border: none;
             border-radius: 6px;
@@ -144,7 +154,7 @@
 
         /* Controls sit above iframe (z-index: 100) */
         .webcontrols {
-            background: #36363638;
+            background: rgba(54, 54, 54, 0.22);
             padding: 15px;
             border-radius: 25px;
             margin: 10px;
@@ -168,7 +178,7 @@
             padding: 10px 10px;
             display: none;
             color: white;
-            background: #36363638;
+            background: rgba(54, 54, 54, 0.22);
             backdrop-filter: blur(10px);
             border: 2px solid transparent;
             box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.3), 0 16px 32px rgba(0, 0, 0, 0.12);
@@ -188,7 +198,7 @@
             height: 40px;
             padding: 10px 10px;
             color: white;
-            background: #36363638;
+            background: rgba(54, 54, 54, 0.22);
             backdrop-filter: blur(10px);
             border: 2px solid transparent;
             box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.3), 0 16px 32px rgba(0, 0, 0, 0.12);
@@ -199,6 +209,7 @@
             cursor: pointer;
             margin: 10px;
             vertical-align: middle;
+            font-family: 'GNFFont', sans-serif !important;
         }
 
         .leftcontrols,
@@ -214,7 +225,7 @@
         }
 
         button:hover {
-            background: #5e5e5e38;
+            background: rgba(94, 94, 94, 0.35);
         }
 
         .tabs {
@@ -229,7 +240,7 @@
             height: 20px;
             padding: 10px 20px;
             color: white;
-            background: #36363638;
+            background: rgba(54, 54, 54, 0.22);
             backdrop-filter: blur(10px);
             border: 2px solid transparent;
             box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.3), 0 16px 32px rgba(0, 0, 0, 0.12);
@@ -243,6 +254,7 @@
             overflow: hidden;
             align-items: center;
             position: relative;
+            font-family: 'GNFFont', sans-serif !important;
         }
 
         .tab img {
@@ -273,7 +285,7 @@
         }
 
         .tab:hover {
-            background: #5e5e5e38;
+            background: rgba(94, 94, 94, 0.35);
         }
 
         .tab span {
@@ -285,22 +297,6 @@
             white-space: nowrap;
         }
 
-        .loader {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            border: 3px solid rgb(255, 255, 255, 1);
-            border-top-color: transparent;
-            border-right-color: transparent;
-            animation: rot1 0.5s linear infinite;
-        }
-
-        @keyframes rot1 {
-            to {
-                transform: rotate(360deg);
-            }
-        }
-
         #sj-error {
             color: #ff6666 !important;
             white-space: pre-wrap;
@@ -309,10 +305,8 @@
         #sj-error-code {
             font-size: 12px;
             color: #fff;
-            font-family: "Courier New", Courier, monospace;
         }
 
-        /* Position the expand down button at top center when search bar is hidden */
         .showcontrols {
             z-index: 100;
             top: 10px;
@@ -474,9 +468,18 @@
             });
 
             const cTab = bTabs.find(t => t.id === tId);
+            const bgText = document.querySelector(".backgroundtext");
+
             if (cTab) {
                 const input = document.getElementById("sj-address");
                 if (input) input.value = cTab.url;
+
+                // Show background text and transparent state if tab is empty
+                if (!cTab.url) {
+                    if (bgText) bgText.style.display = "block";
+                } else {
+                    if (bgText) bgText.style.display = "none";
+                }
             }
         }
 
@@ -543,6 +546,31 @@
             go(url);
         }
 
+        // Helper function to force custom font into embedded websites inside iframe
+        function injectCustomFontToIframe(iframe) {
+            try {
+                const doc = iframe.contentDocument || (iframe.contentWindow && iframe.contentWindow.document);
+                if (doc && doc.head) {
+                    const fontStyle = doc.createElement('style');
+                    fontStyle.textContent = `
+                        @font-face {
+                            font-family: 'GNFFont';
+                            src: url('${window.location.origin}/APPFONT/gnf.regular.ttf') format('truetype');
+                            font-weight: normal;
+                            font-style: normal;
+                        }
+                        *, *::before, *::after, body, div, p, span, a, h1, h2, h3, h4, h5, h6, input, button, select, textarea {
+                            font-family: 'GNFFont', sans-serif !important;
+                            font-variant-numeric: tabular-nums lining-nums;
+                        }
+                    `;
+                    doc.head.appendChild(fontStyle);
+                }
+            } catch (e) {
+                console.warn("Cross-origin frame font injection limited by browser context:", e);
+            }
+        }
+
         async function go(u) {
             try {
                 if (typeof registerSW === "function") {
@@ -577,6 +605,9 @@
             const viewframe = document.querySelector(`.viewframe[data-frame-id="${aTab}"]`);
             if (!viewframe) return;
 
+            // Mark iframe as loaded so background becomes opaque website backdrop
+            viewframe.classList.add("loaded-site");
+
             const ubar = document.getElementById("sj-address");
             if (ubar) ubar.value = cTab ? cTab.url : u;
             if (favEl && cTab && cTab.url) {
@@ -591,6 +622,7 @@
                 }
 
                 viewframe.onload = () => {
+                    injectCustomFontToIframe(viewframe);
                     const tabEl = document.querySelector(`.tab[data-tab-id="${aTab}"]`);
                     let title = "Scramjet";
                     try {
@@ -663,6 +695,10 @@
                         <meta name="viewport" content="width=device-width, initial-scale=1.0">
                         <title>${titleText}</title>
                         <style>
+                            @font-face {
+                                font-family: 'GNFFont';
+                                src: url('${window.location.origin}/APPFONT/gnf.regular.ttf') format('truetype');
+                            }
                             html, body {
                                 margin: 0;
                                 padding: 0;
@@ -670,6 +706,7 @@
                                 height: 100%;
                                 overflow: hidden;
                                 background: #111;
+                                font-family: 'GNFFont', sans-serif !important;
                             }
                             iframe {
                                 width: 100vw;
@@ -688,7 +725,6 @@
             }
         }
 
-        /* Slide controls up off-screen so the website in the background can be used completely */
         function hide() {
             document.querySelector(".webcontrols").style.transform = "translate(-50%, -200%)";
             setTimeout(() => {
@@ -700,7 +736,6 @@
             }, 401);
         }
 
-        /* Restore search bar controls over the website */
         function show() {
             document.querySelector(".showcontrols").style.opacity = "0";
             setTimeout(() => {
