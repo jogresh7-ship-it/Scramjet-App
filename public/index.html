@@ -14,8 +14,6 @@
     <script src="register-sw.js" defer></script>
     <script src="search.js" defer></script>
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
-
     <style>
         /* Custom TTF Font Definition */
         @font-face {
@@ -196,20 +194,31 @@
 
         button {
             height: 40px;
-            padding: 10px 10px;
+            width: 40px;
+            padding: 0;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
             color: white;
             background: rgba(54, 54, 54, 0.22);
             backdrop-filter: blur(10px);
             border: 2px solid transparent;
             box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.3), 0 16px 32px rgba(0, 0, 0, 0.12);
             border-radius: 500px;
-            width: 40px;
             text-align: center;
             transition: 0.2s;
             cursor: pointer;
             margin: 10px;
             vertical-align: middle;
             font-family: 'GNFFont', sans-serif !important;
+        }
+
+        button img {
+            width: 18px;
+            height: 18px;
+            object-fit: contain;
+            pointer-events: none;
+            display: block;
         }
 
         .leftcontrols,
@@ -257,7 +266,7 @@
             font-family: 'GNFFont', sans-serif !important;
         }
 
-        .tab img {
+        .tab img#fav {
             width: 16px;
             height: 16px;
             min-width: 16px;
@@ -271,17 +280,29 @@
             margin: 5px;
         }
 
-        .tab i {
+        .tab .closetab {
             position: absolute;
             right: 6%;
             top: 50%;
             transform: translateY(-50%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
             transition: 0.2s;
-            font-size: 13px;
+            cursor: pointer;
         }
 
-        .tab i:hover {
-            color: rgb(211, 125, 125);
+        .tab .closetab img {
+            width: 12px;
+            height: 12px;
+            object-fit: contain;
+            opacity: 0.8;
+            transition: transform 0.2s, opacity 0.2s;
+        }
+
+        .tab .closetab:hover img {
+            opacity: 1;
+            transform: scale(1.15);
         }
 
         .tab:hover {
@@ -320,13 +341,21 @@
 
     <div class="webcontrols">
         <div class="tabs">
-            <button id="nt" onclick="newTab()"><i class="fas fa-plus"></i></button>
+            <button id="nt" onclick="newTab()">
+                <img src="https://img.icons8.com/?size=100&id=oF7jXJoq6nNX&format=png&color=FFFFFF" alt="new tab" />
+            </button>
         </div>
         <div class="maincontrols">
             <div class="leftcontrols">
-                <button onclick="b()"><i class="fas fa-chevron-left"></i></button>
-                <button onclick="f()"><i class="fas fa-chevron-right"></i></button>
-                <button onclick="r()"><i class="fas fa-rotate-right"></i></button>
+                <button onclick="b()">
+                    <img src="https://img.icons8.com/?size=100&id=84&format=png&color=FFFFFF" alt="back" />
+                </button>
+                <button onclick="f()">
+                    <img src="https://img.icons8.com/?size=100&id=85&format=png&color=FFFFFF" alt="forward" />
+                </button>
+                <button onclick="r()">
+                    <img src="https://img.icons8.com/?size=100&id=7yOOwuLNQT3P&format=png&color=FFFFFF" alt="reload" />
+                </button>
             </div>
             <form action="" id="sj-form">
                 <input
@@ -338,14 +367,18 @@
                 <button id="submit" type="submit">Go</button>
             </form>
             <div class="rightcontrols">
-                <button onclick="full()"><i class="fas fa-external-link"></i></button>
-                <button onclick="hide()"><i class="fas fa-chevron-up"></i></button>
+                <button onclick="full()">
+                    <img src="https://img.icons8.com/?size=100&id=o90MnZhnB2CM&format=png&color=FFFFFF" alt="external link" />
+                </button>
+                <button onclick="hide()">
+                    <img src="https://img.icons8.com/?size=100&id=11036&format=png&color=FFFFFF" alt="hide" />
+                </button>
             </div>
         </div>
     </div>
 
     <button class="showcontrols" onclick="show()" style="opacity: 0; position: fixed; display: none; transition: 0.2s;">
-        <i class="fas fa-chevron-down"></i>
+        <img src="https://img.icons8.com/?size=100&id=11024&format=png&color=FFFFFF" alt="show" />
     </button>
 
     <div class="backgroundtext">
@@ -423,7 +456,7 @@
             const tabElement = document.createElement("div");
             tabElement.classList.add("tab");
             tabElement.dataset.tabId = nTab.id;
-            tabElement.innerHTML = `<img id="fav" data-fav-id="${nTab.id}" src="https://www.google.com/s2/favicons?domain=duckduckgo.com&sz=64" alt="favicon"><span class="btitle">New Tab</span> <div class="closetab"><i class="fas fa-times"></i></div>`;
+            tabElement.innerHTML = `<img id="fav" data-fav-id="${nTab.id}" src="https://img.icons8.com/?size=100&id=63778&format=png&color=000000" alt="favicon"><span class="btitle">New Tab</span> <div class="closetab"><img src="https://img.icons8.com/?size=100&id=1510&format=png&color=FFFFFF" alt="close"></div>`;
 
             tabElement.addEventListener("click", (e) => {
                 if (!e.target.closest(".closetab")) {
@@ -729,7 +762,7 @@
             document.querySelector(".webcontrols").style.transform = "translate(-50%, -200%)";
             setTimeout(() => {
                 document.querySelector(".webcontrols").style.display = "none";
-                document.querySelector(".showcontrols").style.display = "block";
+                document.querySelector(".showcontrols").style.display = "inline-flex";
                 setTimeout(() => {
                     document.querySelector(".showcontrols").style.opacity = "1";
                 }, 1);
