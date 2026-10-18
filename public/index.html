@@ -213,10 +213,15 @@
             font-family: 'GNFFont', sans-serif !important;
         }
 
-        button img {
-            width: 18px;
-            height: 18px;
-            object-fit: contain;
+        /* SVG Control Icons Styling */
+        button svg {
+            width: 20px;
+            height: 20px;
+            stroke: #ffffff;
+            fill: none;
+            stroke-width: 3.2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
             pointer-events: none;
             display: block;
         }
@@ -274,6 +279,11 @@
             object-fit: contain;
             border-radius: 2px;
             margin-right: 8px;
+            display: none; /* Hidden until loaded with custom site favicon */
+        }
+
+        .tab img#fav[src]:not([src=""]) {
+            display: block;
         }
 
         .tabs button {
@@ -292,17 +302,22 @@
             cursor: pointer;
         }
 
-        .tab .closetab img {
+        .tab .closetab svg {
             width: 12px;
             height: 12px;
-            object-fit: contain;
-            opacity: 0.8;
-            transition: transform 0.2s, opacity 0.2s;
+            stroke: #ffffff;
+            fill: none;
+            stroke-width: 3.5;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            opacity: 0.85;
+            transition: transform 0.2s ease, opacity 0.2s ease;
+            display: block;
         }
 
-        .tab .closetab:hover img {
+        .tab .closetab:hover svg {
             opacity: 1;
-            transform: scale(1.15);
+            transform: scale(1.2);
         }
 
         .tab:hover {
@@ -341,20 +356,30 @@
 
     <div class="webcontrols">
         <div class="tabs">
-            <button id="nt" onclick="newTab()">
-                <img src="https://img.icons8.com/?size=100&id=oF7jXJoq6nNX&format=png&color=FFFFFF" alt="new tab" />
+            <button id="nt" onclick="newTab()" aria-label="New Tab">
+                <svg viewBox="0 0 24 24">
+                    <line x1="12" y1="5" x2="12" y2="19"/>
+                    <line x1="5" y1="12" x2="19" y2="12"/>
+                </svg>
             </button>
         </div>
         <div class="maincontrols">
             <div class="leftcontrols">
-                <button onclick="b()">
-                    <img src="https://img.icons8.com/?size=100&id=84&format=png&color=FFFFFF" alt="back" />
+                <button onclick="b()" aria-label="Back">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M15 19l-7-7 7-7"/>
+                    </svg>
                 </button>
-                <button onclick="f()">
-                    <img src="https://img.icons8.com/?size=100&id=85&format=png&color=FFFFFF" alt="forward" />
+                <button onclick="f()" aria-label="Forward">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M9 5l7 7-7 7"/>
+                    </svg>
                 </button>
-                <button onclick="r()">
-                    <img src="https://img.icons8.com/?size=100&id=7yOOwuLNQT3P&format=png&color=FFFFFF" alt="reload" />
+                <button onclick="r()" aria-label="Reload">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M20 11A8 8 0 1 1 17.33 5.34L20 8"/>
+                        <path d="M20 3v5h-5"/>
+                    </svg>
                 </button>
             </div>
             <form action="" id="sj-form">
@@ -367,23 +392,29 @@
                 <button id="submit" type="submit">Go</button>
             </form>
             <div class="rightcontrols">
-                <button onclick="full()">
-                    <img src="https://img.icons8.com/?size=100&id=o90MnZhnB2CM&format=png&color=FFFFFF" alt="external link" />
+                <button onclick="full()" aria-label="Open in New Tab">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+                        <path d="M15 3h6v6"/>
+                        <path d="M10 14L21 3"/>
+                    </svg>
                 </button>
-                <button onclick="hide()">
-                    <img src="https://img.icons8.com/?size=100&id=11036&format=png&color=FFFFFF" alt="hide" />
+                <button onclick="hide()" aria-label="Hide Controls">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M18 15l-6-6-6 6"/>
+                    </svg>
                 </button>
             </div>
         </div>
     </div>
 
-    <button class="showcontrols" onclick="show()" style="opacity: 0; position: fixed; display: none; transition: 0.2s;">
-        <img src="https://img.icons8.com/?size=100&id=11024&format=png&color=FFFFFF" alt="show" />
+    <button class="showcontrols" onclick="show()" style="opacity: 0; position: fixed; display: none; transition: 0.2s;" aria-label="Show Controls">
+        <svg viewBox="0 0 24 24">
+            <path d="M6 9l6 6 6-6"/>
+        </svg>
     </button>
 
     <div class="backgroundtext">
-        <h1>Scramjet</h1>
-        <p>made by frutiger | built for frutiger-os</p>
         <p id="sj-error"></p>
         <pre id="sj-error-code"></pre>
     </div>
@@ -456,7 +487,16 @@
             const tabElement = document.createElement("div");
             tabElement.classList.add("tab");
             tabElement.dataset.tabId = nTab.id;
-            tabElement.innerHTML = `<img id="fav" data-fav-id="${nTab.id}" src="https://img.icons8.com/?size=100&id=63778&format=png&color=000000" alt="favicon"><span class="btitle">New Tab</span> <div class="closetab"><img src="https://img.icons8.com/?size=100&id=1510&format=png&color=FFFFFF" alt="close"></div>`;
+            tabElement.innerHTML = `
+                <img id="fav" data-fav-id="${nTab.id}" src="" alt="favicon">
+                <span class="btitle">New Tab</span>
+                <div class="closetab">
+                    <svg viewBox="0 0 24 24">
+                        <line x1="18" y1="6" x2="6" y2="18"/>
+                        <line x1="6" y1="6" x2="18" y2="18"/>
+                    </svg>
+                </div>
+            `;
 
             tabElement.addEventListener("click", (e) => {
                 if (!e.target.closest(".closetab")) {
