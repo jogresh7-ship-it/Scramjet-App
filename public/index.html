@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="color-scheme" content="light dark">
+    <meta name="color-scheme" content="dark">
     <title>Scramjet</title>
 
     <link rel="shortcut icon" content="favicon.webp" />
@@ -34,22 +34,22 @@
             font-variant-numeric: tabular-nums lining-nums;
         }
 
-        /* ===== Chrome-style theme tokens (light by default, dark follows the OS) ===== */
+        /* ===== Chrome-style theme tokens (inverted: black chrome, white text) ===== */
         :root {
-            color-scheme: light dark;
-            --strip: #dee1e6;
-            --toolbar: #ffffff;
-            --fg: #202124;
-            --icon: #5f6368;
-            --omni: #f1f3f4;
-            --omni-hover: #e8eaed;
-            --hover: rgba(60, 64, 67, 0.08);
-            --press: rgba(60, 64, 67, 0.14);
-            --tab-hover: rgba(255, 255, 255, 0.5);
-            --border: #dadce0;
-            --accent: #1a73e8;
+            color-scheme: dark;
+            --strip: #212121;
+            --toolbar: #000000;
+            --fg: #ffffff;
+            --icon: #bdbdbd;
+            --omni: #1c1c1c;
+            --omni-hover: #2a2a2a;
+            --hover: rgba(255, 255, 255, 0.12);
+            --press: rgba(255, 255, 255, 0.2);
+            --tab-hover: rgba(255, 255, 255, 0.1);
+            --border: #2e2e2e;
+            --accent: #8ab4f8;
             --chrome-h: 82px; /* 41px tab strip + 41px toolbar */
-            --search-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%235f6368' stroke-width='2.4' stroke-linecap='round'%3E%3Ccircle cx='11' cy='11' r='7'/%3E%3Cpath d='M20 20l-4-4'/%3E%3C/svg%3E");
+            --search-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23bdbdbd' stroke-width='2.4' stroke-linecap='round'%3E%3Ccircle cx='11' cy='11' r='7'/%3E%3Cpath d='M20 20l-4-4'/%3E%3C/svg%3E");
 
             /* ===== Custom cursors (hotspot x y after each image) ===== */
             --c-default:   url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAAWCAYAAADNX8xBAAABuUlEQVR4nJ3UMYsaQRTA8b+yrCLrgceBMchsl/Ja4ep8gMRP4CcQJB8g5TXCwVqktbMMpAqkSSe7IaRLFUIga7GKlW7YWWUnhbM6mJyu9+AxW+z8dnbezCtxiLKRAJmRZ6OUI81m89q27bdKqXKapu/m8/kvYGtkIcgSQnzt9Xq3AOPxOIzj+PVyufwBpDrPYmWg6rquklIqKaUaDodKCPG70WjcAddADbCKQDUTMrCZxm6KYBbgHENPwSzg6n/QpdhJ6BLsLFQUKwRJKdVkMjGxf6pZGHoEqwLlMhdGt9ul3+8/dxznQSPWkyCAer0Ou/Nn5dDZ0woQBAG+7+P7PrPZjDAM13Ec32Nc6JNQEAR4nofv++vNZvNxu91+SZLk+2q1+gkkHO5g9ig0Go3wPG8tpfSiKHrP4fKameRQvirHdV21WCyUlFINBgPVbre/VSqVl8At8AIQwDN2lbpiV3pb7xUl/VAVQnzqdDp3ANPp9HMYhm/0F//ozH8jX0HeVjITsoFaq9V6lWXZTRRFH/SLiYGkx5PN2Dc2je3PhZ5kAicb277VGkBegHz5+80sAuWYOWZH48n4C5Ucdd3uxMGmAAAAAElFTkSuQmCC') 2 1, default;
@@ -61,23 +61,6 @@
             --c-crosshair: url('data:image/png;base64,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') 14 14, crosshair;
             --c-move:      url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB8AAAAeCAYAAADU8sWcAAAFSklEQVR4nLVXX0hbVxz+ermIFBusFQlS7kOxrTFjlC1Yuj51ZPooZbGMvSjtFGZJCbYPMtaHInSVy1jtaGddR5vBApVWC5VqnX2YrMSYhsuK3ihJFJtcSW60mnuNXLR49pB79Br/1HTuwI8Qcs7v+37nfN/vnOzDhw1GDzpW9cg5Sa7z2VAoZJdl+dqTJ0+OAcgHkAeA/YB8OQHnzczMNIbDYcLzPJFlmYiieAlAEYACncSeE2AA5EmS1BgOh8mpU6cIx3GkurqayLJMAoFAM4CS/4sASyumwDQoAb/ff8VAgN0rYCYUClVlV5z9Kcsy6enp+QqZI8jHLqrfzfYwRUVFNW63G5Ikwel0oq6uDgBQV1cHp9OJYDAIt9uNo0ePnkYO4nvf9jAAmNnZ2Zf19fVNJ0+ehN1uR3d399oEp9MJi8UCi8WCaDQqYd2GNLa14Fbg2YvZ48eP9w8MDHxpNps/9fv9eQCu0MkjIyO/r6ysxF68eDHV2Ng4ZMhLhbeaFRuAsr+z8Xi8XlXV0OLior+zs7MMAFNVVfW3zWa7SwiZMy6Yn5+PnT179rEOrN26datUUZS/VFX1jo6OOrDLPrDBTg6Hg/A8TxKJxHMApcgo2fz06dNzkUiEuFwuEolESGtr6zkAxwBwAMwLCwsvr169ShwOB5Flmbx+/doFoBg72HBLH/M8T6anp3sAlBkJvHr1qjkWiz3u6+tr0n/jAJgBmJPJZF9HR8dONtxEgI3H499kA2uaRpLJ5EQikfDH4/E/29raKikBnUwpgNKurq7PZ2dn++bn572pVCqqaRrheX47Avv1I8A+AMzDhw+La2pqEmfOnIEkSTCZTCgvL9+wNRaLBc3NzeLBgwe/ALCMdQExqqoKHR0dnM/n27BmZGRkbe39+/cVl8t1uqurKwZAA6CxAFBSUlKoKAoURQEAKIqytpAOSZJw+fLlQp31soEAwzBMYXd3NyRJ2iQkAIjFYmBZ1rS0tMQiS3gMgPw3b97wgiAQq9VKOI4jHo+HaJq2Fqqqqj6fr00/XyqgfAAFk5OT3xnnappGPB4P4TiOWK1WIggC8fv9d3V9FOtbvw4OoGhiYuKnbAJDQ0NuAJ8BOIGMqg9fvHjxSDAY/PrRo0cfASjUEx4GcEwUxT+ygb1e728APtaJ0/a7Nli9khJRFNspgdraWjIzMxMwAt+8edOWTqdTvb29RFGU6YaGhjKsi5BLJpO+8+fPZwOf0Kve8uJhkLGACYBZFMX2SCRCZFkmAwMD31NgAObR0dFLvb29azszPDx8BQYbjo2NXaNrA4HAXb3iMp2cCQarUQarAN4ho0JUVFT8cO/evb7Jycml69evxwAsX7hwYT/DMKsrKysMFSYApNPpvJaWlrIbN26EAbyzWq2/tLa2Pj906FBRU1PTuCHvkv75Dtv0e7oDBfrZFAMouX379ifpdDolyzJZWFgYo2fq8XjI27dvJVmWSSqVihr6AI1i7PDKyW51xh1YomwdDkfDnTt3TDabDc+ePaswLujv7y+12Wzo7Ow8XFtb+62ec1OOrSre6lYz3kAMgNXFxcV/7HY7Hjx4gJaWFlRWVgIABgcHMTg4iAMHDsButyMajU4YwJcNgDm/bI0EC6ampn402pCGwce/AihHRlh79pRikGkKxePj4+1GAlvY6QjWm8iePCKNIjSLovizIAikurqaCIJAhoeHjT6mVe/pC3ZDHwgGg+1zc3NBr9fbBqACmYo3+fh9Y1+OBFhkWiN9ndBn0jL0mwo7+Pi/gBsJGG8nak8au1Z2ruCUwHZ/FHOy1L+x0QkqPnREqQAAAABJRU5ErkJggg==') 14 14, move;
             --c-no:        url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABcAAAAXCAYAAADgKtSgAAADTElEQVR4nI2VP2gbdxTHP7qcjkguqhwLYTIUXIIxRSkZAlmKZU6l2IOW3pJ0aMFdAhUEgxfLq+3FUyYPAddbKbUpxeAsPRljkqVujZtQPBT8Z4iERWz5LDU6R/r9OujucrpIkX9wvDvu977f997v/b4vxIeX0sEK5z1o31uhD4AqgLKysnJjZGTk02g0Gj89PbXGxsb+dgAF0PC9dyUJAmv7+/vj1Wp127ZtGXzOz8+f7e7ufgvEgY8AzZddd+C1tbWkZVnrtm3Lt0+fyub0tGwahhTj47JpGLI5PS3fbmxI27ZlqVT6JZfL3QJiwPUgQSgAnJiYmDCvvX6dUhcWCB0cdI1CJpM05uepx2L/TE1NGcvLyyWgDly6JXLBFUCtVCo/Ri4uvlFnZwmdnAAgslnE7dvQ19faaJoohUIbwVk4/Pvg4OB3QNUhaADC64Kjo6OvI5FIGzAAtRry3j1kKoVMpWg+ekTjyRNIJgmdnKAuLNDf3//l6urqmFMar/4e+MDAwA9KodAODCiFAtceP+5YEvr6CB0coJgm6XR6ygFX/eAKoIbD4S8U02yVQtdpPnjQk6Cp697/WCx2N5vNJp3IVUBRAGVnZ+cO4B2gzGQQ9+/3Jkil8PuNjo5+4otcUQA0TYu79fWvngTOIbt+iUQi/l5ZLMuy2jZXq1cn8PkVi0XX0YtcbG9vHwPIoaFWmi9fXikDryUdv3w+v++64LbizMzMab1efy4yGc+ZQNd0InDBha5zdnb2F+1646mc2NvbWxS63oqiVkOdne1JAEAyichk2Nzc/InW7fTEzL2hGhAtl8s/f1yvf+UHFrqOdDKiViP04gXK+roH3Jif5/DNm43h4eEZoAJYwH/ApQuuAtdzudzg3Nzcb9GLi886Rd62hoZo5PNYkci/hmF8v7W19coH7EoAbnk0IDY5OTlyfHz8q18VhaOKwjBkw6eKh4eHW+l0ehQYBm7SUseO8qvQur5x4KZpmg/L5fIfnfS8VCr9ubS09BD4HLjlAMcJyG5wErkZaM7GKKAtLi6mEolEvFgsVk3TfGWaZsU5vEtfGdxv0Q3cJVB5pxGuVX17Gs5zGbBto67nDMWnFfhalyvM0G7gfpKgvfL0/x96acB3m99gQwAAAABJRU5ErkJggg==') 10 10, not-allowed;
-        }
-
-        @media (prefers-color-scheme: dark) {
-            :root {
-                --strip: #202124;
-                --toolbar: #35363a;
-                --fg: #e8eaed;
-                --icon: #9aa0a6;
-                --omni: #202124;
-                --omni-hover: #28292c;
-                --hover: rgba(232, 234, 237, 0.08);
-                --press: rgba(232, 234, 237, 0.14);
-                --tab-hover: rgba(255, 255, 255, 0.08);
-                --border: #3c4043;
-                --accent: #8ab4f8;
-                --search-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%239aa0a6' stroke-width='2.4' stroke-linecap='round'%3E%3Ccircle cx='11' cy='11' r='7'/%3E%3Cpath d='M20 20l-4-4'/%3E%3C/svg%3E");
-            }
         }
 
         /* Every element uses the custom arrow unless a rule below says otherwise */
@@ -416,7 +399,7 @@
 
         /* ===== Error text on the empty page ===== */
         #sj-error {
-            color: #d93025 !important;
+            color: #ff6b61 !important;
             white-space: pre-wrap;
         }
 
